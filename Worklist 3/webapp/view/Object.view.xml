@@ -75,7 +75,7 @@
 							width = "250px"
 							id = "SelectGroupText"
 							forceSelection = "false"
-							selectedKey = "{SubGroupID}"
+							selectedKey = "{GroupID}"
 							valueState = "Success"
 							valueStateText = "Choose value "
 							showSecondaryValues = "true"
