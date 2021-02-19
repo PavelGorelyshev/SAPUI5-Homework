@@ -1,0 +1,139 @@
+<mvc:View
+	controllerName="zjblesson02.WorklistShoes.controller.Object"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core">
+
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false"
+		busy="{objectView>/busy}"
+		busyIndicatorDelay="{objectView>/delay}">
+
+		<semantic:titleHeading>
+			<l:VerticalLayout>
+				<Button 
+					tooltip = "Back to Worklist"
+					icon = "sap-icon://nav-back"
+					press = "onNavBack"
+				/>
+				<Title text = "Material ID = {MaterialID}, Material Text = {MaterialText}, Intergation ID = {IntegrationID}"/>
+			</l:VerticalLayout>
+		</semantic:titleHeading>
+
+		<semantic:headerContent>
+		</semantic:headerContent>
+		
+		<semantic:content>
+			<List>
+				<headerToolbar>
+					<Toolbar>
+						<Button 
+							text = "Save" 
+							icon = "sap-icon://accept"
+							press = "onPressSubmitChanges"
+							enabled = "{objectView>/enableChange}"
+						/>
+						<Button 
+							text = "Reset" 
+							icon = "sap-icon://reset"
+							press = "onPressResetChanges"
+							enabled = "{objectView>/enableChange}"
+						/>
+						<Button 
+							text = "Refresh" 
+							icon = "sap-icon://refresh"
+							press = "onPressRefresh"
+						/>
+					</Toolbar>
+				</headerToolbar>
+				<items>
+					<InputListItem label = "Enable changing">
+						<Switch
+							state = "false"
+							change = "onPressChange"
+						/>
+					</InputListItem>
+					<InputListItem label = "Material Text">
+						<Input 
+							width = "250px"
+							id = "inpMaterialText"
+							maxLength = "20"
+							value = "{MaterialText}"
+							enabled = "{objectView>/enableChange}"
+							valueLiveUpdate = "true"
+						/>
+					</InputListItem>
+					<InputListItem label = "Group ID">
+						<Text text = "{GroupID}"/>
+					</InputListItem>
+					<InputListItem label = "Group Text">
+						<Select 
+							width = "250px"
+							id = "SelectGroupText"
+							forceSelection = "false"
+							selectedKey = "{GroupID}"
+							valueState = "Success"
+							valueStateText = "Choose value "
+							showSecondaryValues = "true"
+							items = "{path: '/zjblessons_base_Groups', sorter: {path: 'GroupID', descending: false} }"
+							enabled = "{objectView>/enableChange}"
+						>
+							<core:Item 
+								key = "{GroupID}" 
+								text = "{GroupText}"
+							/>
+						</Select>
+					</InputListItem>
+					<InputListItem label = "SubGropup ID">
+						<Text text = "{SubGroupID}"/>
+					</InputListItem>
+					<InputListItem label = "SubGroup Text">
+						<Select 
+							width = "250px"
+							id = "SelectSubGroupText"
+							forceSelection = "false"
+							selectedKey = "{SubGroupID}"
+							valueState = "Success"
+							valueStateText = "Choose value "
+							showSecondaryValues = "true"
+							items = "{path: '/zjblessons_base_SubGroups', sorter: {path: 'SubGroupID', descending: false} }"
+							enabled = "{objectView>/enableChange}"
+						>
+							<core:Item 
+								key = "{SubGroupID}" 
+								text = "{SubGroupText}"
+							/>
+						</Select>
+					</InputListItem>
+					<InputListItem label = "Itegration ID">
+						<Input 
+							width = "250px"
+							id = "inpIntegrationID"
+							maxLength = "20"
+							value = "{IntegrationID}"
+							enabled = "{objectView>/enableChange}"
+							valueLiveUpdate = "true"
+						/>
+					</InputListItem>
+					<InputListItem label = "Created By">
+						<Text text = "{CreatedBy}"/>
+					</InputListItem>
+					<InputListItem label = "Modified By">
+						<Text text = "{ModifiedBy}"/>
+					</InputListItem>
+				</items>
+			</List>
+		</semantic:content>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+
+	</semantic:SemanticPage>
+
+</mvc:View>
