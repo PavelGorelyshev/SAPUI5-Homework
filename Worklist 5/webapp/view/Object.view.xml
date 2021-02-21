@@ -1,0 +1,139 @@
+<mvc:View
+	controllerName="zjblesson02.WorklistShoes.controller.Object"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core">
+
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false"
+		busy="{objectView>/busy}"
+		busyIndicatorDelay="{objectView>/delay}">
+
+		<semantic:titleHeading>
+			<l:VerticalLayout>
+				<Button 
+					tooltip = "Back to Worklist"
+					icon = "sap-icon://nav-back"
+					press = "onNavBack"
+				/>
+				<Title text = "{i18n>labelMaterialID} = {MaterialID}, {i18n>labelMaterialText} = {MaterialText}, {i18n>labelIntegrationID} = {IntegrationID}"/>
+			</l:VerticalLayout>
+		</semantic:titleHeading>
+
+		<semantic:headerContent>
+		</semantic:headerContent>
+		
+		<semantic:content>
+			<List>
+				<headerToolbar>
+					<Toolbar>
+						<Button 
+							text = "{i18n>bSave}" 
+							icon = "sap-icon://accept"
+							press = "onPressSubmitChanges"
+							enabled = "{objectView>/enableChange}"
+						/>
+						<Button 
+							text = "{i18n>bReset}" 
+							icon = "sap-icon://reset"
+							press = "onPressResetChanges"
+							enabled = "{objectView>/enableChange}"
+						/>
+						<Button 
+							text = "{i18n>bRefresh}" 
+							icon = "sap-icon://refresh"
+							press = "onPressRefresh"
+						/>
+					</Toolbar>
+				</headerToolbar>
+				<items>
+					<InputListItem label = "{i18n>labelMode}">
+						<Text text = "{= ${objectView>/enableChange} ? ${i18n>tEditMode} : ${i18n>tViewMode}}"/>
+					</InputListItem>
+					<InputListItem label = "{i18n>labelEnableChanging}">
+						<Switch state="{objectView>/enableChange}"/>
+					</InputListItem>
+					<InputListItem label = "{i18n>labelMaterialText}">
+						<Input 
+							width = "250px"
+							id = "inpMaterialText"
+							maxLength = "20"
+							value = "{MaterialText}"
+							enabled = "{objectView>/enableChange}"
+							valueLiveUpdate = "true"
+						/>
+					</InputListItem>
+					<InputListItem label = "{i18n>labelGroupID}">
+						<Text text = "{GroupID}"/>
+					</InputListItem>
+					<InputListItem label = "{i18n>labelGroupText}">
+						<Select 
+							width = "250px"
+							id = "SelectGroupText"
+							forceSelection = "false"
+							selectedKey = "{GroupID}"
+							valueState = "Success"
+							valueStateText = "Choose value "
+							showSecondaryValues = "true"
+							items = "{path: '/zjblessons_base_Groups', sorter: {path: 'GroupID', descending: false} }"
+							enabled = "{objectView>/enableChange}"
+						>
+							<core:Item 
+								key = "{GroupID}" 
+								text = "{GroupText}"
+							/>
+						</Select>
+					</InputListItem>
+					<InputListItem label = "{i18n>labelSubGroupID}  ">
+						<Text text = "{SubGroupID}"/>
+					</InputListItem>
+					<InputListItem label = "{i18n>labelSubGroupText}  ">
+						<Select 
+							width = "250px"
+							id = "SelectSubGroupText"
+							forceSelection = "false"
+							selectedKey = "{SubGroupID}"
+							valueState = "Success"
+							valueStateText = "Choose value "
+							showSecondaryValues = "true"
+							items = "{path: '/zjblessons_base_SubGroups', sorter: {path: 'SubGroupID', descending: false} }"
+							enabled = "{= ${objectView>/enableChange} &amp;&amp; (${GroupID} > 3) }"
+						>
+							<core:Item 
+								key = "{SubGroupID}" 
+								text = "{SubGroupText}"
+							/>
+						</Select>
+					</InputListItem>
+					<InputListItem label = "{i18n>labelIntegrationID}">
+						<Input 
+							width = "250px"
+							id = "inpIntegrationID"
+							maxLength = "20"
+							value = "{IntegrationID}"
+							enabled = "{objectView>/enableChange}"
+							valueLiveUpdate = "true"
+						/>
+					</InputListItem>
+					<InputListItem label = "{i18n>labelCreationInfo}">
+						<Text text = "{parts: ['CreatedBy', 'Created'], formatter: '.formatter.formatCreationInfo'}"/>
+					</InputListItem>
+					<InputListItem label = "{i18n>labelModificationInfo}">
+						<Text text = "{parts: ['ModifiedBy', 'Modified'], formatter: '.formatter.formatModificationInfo'}"/>
+					</InputListItem>
+				</items>
+			</List>
+		</semantic:content>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+
+	</semantic:SemanticPage>
+
+</mvc:View>
